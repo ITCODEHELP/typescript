@@ -1,17 +1,17 @@
 
-![npm](https://img.shields.io/npm/v/@jupita/jupita-agent-sdk)
+![npm](https://img.shields.io/npm/v/@jupita/jupita-sdk)
 
-# Jupita Agent Typescript SDK
+# Jupita Typescript SDK
 
-This library will allow you to make the required `dump` API calls with Jupita Agent. All API calls are made asynchronously, thus there are event listeners available to handle the API results.
+This library will allow you to make the required `dump` API calls with Jupita. All API calls are made asynchronously, thus there are event listeners available to handle the API results.
 
 ## Overview
-Jupita Agent is an API product that provides deep learning powered communications analytics. Within the SDK documentation, `messageType` will simply refer to who is speaking. `messageType` 0 = `agent`, and `messageType` 1 = `client`, although these labels are handled by the SDK.
+Jupita is an API product that provides deep learning powered communications analytics. Within the SDK documentation, `messageType` will simply refer to who is speaking. `messageType` 0 = `touchpoint`, and `messageType` 1 = `input`, although these labels are handled by the SDK.
 
-The required parameters for the APIs include setting `messageType`, along with assigning an `agentId` + `clientId` to be passed - how this is structured or deployed is completely flexible and customizable. Please note when assigning the `agentId` that no data will be available for that particular agent until the agent has sent at least 1 utterance via the `dump` API. 
+The required parameters for the APIs include setting `messageType`, along with assigning an `touchpointId` + `inputId` to be passed - how this is structured or deployed is completely flexible and customizable. Please note when assigning the `touchpointId` that no data will be available for that particular touchpoint until the touchpoint has sent at least 1 utterance via the `dump` API. 
 
 ## APIs
-There is one API within the Jupita Agent product – `dump`:
+There is one API within the Jupita product – `dump`:
 
 - `Dump` allows you to dump each communication utterance.
 
@@ -21,39 +21,39 @@ There is one API within the Jupita Agent product – `dump`:
 ### Installation
 
 ```
-npm install @jupita/jupita-agent-sdk
+npm install @jupita/jupita-sdk
 ```
 
 
-The first step is to initialize the SDK and add the required authentication parameters such as `token`, `agentId` then, initialize the class object.
+The first step is to initialize the SDK and add the required authentication parameters such as `token`, `touchpointId` then, initialize the class object.
 
 ### Initialization
 
 ```
-const { Agent } = require("@jupita/jupita-agent-sdk")
+const { Touchpoint } = require("@jupita/jupita-sdk")
 const token = '<authentication token>'
-const agentId = '2'
-const agent = new Agent(token, agentId)
+const touchpointId = '2'
+const touchpoint = new Touchpoint(token, touchpointId)
 ```
 
 ### Call `Dump` API
 
-When calling the `dump` API, for example from a conversation with `3` being the `clientId` and the message being "hello", you should specify the `text`, `clientId`, and the `messageType` (since message dumps are seen as by default from an agent unless otherwise specified) parameters sequentially;
+When calling the `dump` API, for example from a conversation with `3` being the `inputId` and the message being "hello", you should specify the `text`, `inputId`, and the `messageType` (since message dumps are seen as by default from a touchpoint unless otherwise specified) parameters sequentially;
 ```
-const { Agent, MessageType } = require("@jupita/jupita-agent-sdk")
+const { Touchpoint, MessageType } = require("@jupita/jupita-sdk")
 
-agent.dump("Hello", 3, MessageType.Client)
+touchpoint.dump("Hello", 3, MessageType.Input)
 ```
 
 When you want to dump a message from an audio call (`isCall`) conversation, you may add an additional boolean parameter. `true` meaning the message is from an audio call, and `false` meaning it is not;
 
 ```
-agent.dump("Hello", 3, MessageType.Client, true)
+touchpoint.dump("Hello", 3, MessageType.Input, true)
 ```
 
 Currently, as there is no data logged into the console (as you did not define a listener), you may define as per below;
 ```
-agent.dump("Hello", 3, MessageType.Client, true, {
+touchpoint.dump("Hello", 3, MessageType.Input, true, {
     onError: (statusCode, response) => {
         console.log(statusCode)
         console.log(response)
@@ -64,7 +64,7 @@ agent.dump("Hello", 3, MessageType.Client, true, {
 })
 ```
 
-- `messageType` is `MessageType.Agent`, meaning that the message has come from an agent,
+- `messageType` is `MessageType.Touchpoint`, meaning that the message has come from a touchpoint,
 - `isCall` is `false`,
 - `listener` is null, so no listener called.
 
@@ -90,15 +90,15 @@ The SDK has an `InvalidParameterException` exception that will arises when:
 ## Libraries
 
 Use Step [Initialization](#initialization) so
-that the Jupita Agent Web SDK is available within the scope of the project.
+that the Jupita Web SDK is available within the scope of the project.
 
 
 ## Classes
 
-The available product under this SDK is Jupita Agent. You may construct Jupita Agent by the public constructor and pass the two required parameters:
+The available product under this SDK is Jupita. You may construct Jupita by the public constructor and pass the two required parameters:
 
 - Your authentication token,
-- Your `agentId`.
+- Your `touchpointId`.
 
 Then, [initialize](#initialization).
 
@@ -107,13 +107,13 @@ Then, [initialize](#initialization).
 ### `Dump` Method Definition
 
 ```
-dump(text: string, clientId: number, messageType: number = MessageType.Agent, isCall: boolean = false, listener?: Listener)
+dump(text: string, inputId: number, messageType: number = MessageType.Touchpoint, isCall: boolean = false, listener?: Listener)
 ```
 
 * text (required)
-* clientId (required)
-* messageType (optional, default = Agent)
+* inputId (required)
+* messageType (optional, default = Touchpoint)
 * isCall (optional, default=false)
 * listener (optional)
 
-To avoid illegal argument error for the `messageType` argument, use `MessageType.Agent` for agent, and `MessageType.Client` for client.
+To avoid illegal argument error for the `messageType` argument, use `MessageType.Touchpoint` for touchpoint, and `MessageType.Input` for input.
