@@ -30,30 +30,30 @@ The first step is to initialize the SDK and add the required authentication para
 ### Initialization
 
 ```
-const { Touchpoint } = require("@jupita/jupita-sdk")
+const { Jupita } = require("@jupita/jupita-sdk")
 const token = '<authentication token>'
 const touchpointId = '2'
-const touchpoint = new Touchpoint(token, touchpointId)
+const jupita = new Jupita(token, touchpointId)
 ```
 
 ### Call `Dump` API
 
 When calling the `dump` API, for example from a conversation with `3` being the `inputId` and the message being "hello", you should specify the `text`, `inputId`, and the `messageType` (since message dumps are seen as by default from a touchpoint unless otherwise specified) parameters sequentially;
 ```
-const { Touchpoint, MessageType } = require("@jupita/jupita-sdk")
+const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
-touchpoint.dump("Hello", 3, MessageType.Input)
+jupita.dump("Hello", 3, MessageType.Input)
 ```
 
 When you want to dump a message from an audio call (`isCall`) conversation, you may add an additional boolean parameter. `true` meaning the message is from an audio call, and `false` meaning it is not;
 
 ```
-touchpoint.dump("Hello", 3, MessageType.Input, true)
+jupita.dump("Hello", 3, MessageType.Input, true)
 ```
 
 Currently, as there is no data logged into the console (as you did not define a listener), you may define as per below;
 ```
-touchpoint.dump("Hello", 3, MessageType.Input, true, {
+jupita.dump("Hello", 3, MessageType.Input, true, {
     onError: (statusCode, response) => {
         console.log(statusCode)
         console.log(response)
