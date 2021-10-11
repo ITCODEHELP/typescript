@@ -85,7 +85,6 @@ Error codes thrown are `401` when the token is incorrect and `400` when there is
 
 The SDK has an `InvalidParameterException` exception that will arises when:
 - `messageType` parameter in the `dump` method is not `1` or `0`
-- `model` name parameter in the rating method is not `JupitaV1` or `JupitaV2`
 
 ## Libraries
 
