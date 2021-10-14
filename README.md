@@ -38,14 +38,14 @@ const jupita = new Jupita(token, touchpointId)
 
 ### Call `Dump` API
 
-When calling the `dump` API, for example from a conversation with `3` being the `inputId` and the message being "hello", you should specify the `text`, `inputId`, and the `messageType` (since message dumps are by default from a touchpoint unless otherwise specified) parameters sequentially;
+When a touchpoint sends an utterance to an input, for example `3` being the `inputId`, you should specify the `text`, `inputId`, and the `messageType` (since message dumps are by default from a touchpoint unless otherwise specified) parameters sequentially;
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
 jupita.dump("Hello", 3, MessageType.Touchpoint)
 ```
 
-Similarly, call the dump API whenever input responds back to the same touchpoint by specifying the message and ID of the input;
+Similarly, call the dump API whenever input responds back to the same touchpoint by specifying the message and ID of the touchpoint;
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
