@@ -49,7 +49,7 @@ Similarly, call the dump API whenever input responds back to the same touchpoint
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
-jupita.dump("Hello", 3, MessageType.Input)
+jupita.dump("Hello", 2, MessageType.Input)
 ```
 
 The parameter `isCall` is required and set to false within the SDK. This tells Jupita whether or not the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true`;
