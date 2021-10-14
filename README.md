@@ -85,7 +85,7 @@ that the Jupita Typescript SDK is available within the scope of the project.
 
 ## Classes
 
-The available product under this SDK is Jupita. You may construct Jupita by the public constructor and pass the two required parameters:
+The available product under the Typescript SDK is Jupita. You may construct Jupita by the public constructor and pass the two required parameters:
 
 - Your authentication token,
 - Your `touchpointId`.
