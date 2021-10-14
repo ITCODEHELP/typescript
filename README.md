@@ -18,7 +18,7 @@ There is one API within the Jupita product – `dump`:
 
 ##  Quickstart
 
-### Installation
+### Step 1
 
 ```
 npm install @jupita/jupita-sdk
@@ -27,7 +27,7 @@ npm install @jupita/jupita-sdk
 
 The first step is to initialize the SDK and add the required authentication parameters such as `token`, `touchpointId` then, initialize the class object.
 
-### Initialization
+### Initialisation
 
 ```
 const { Jupita } = require("@jupita/jupita-sdk")
@@ -79,7 +79,7 @@ The SDK has an `InvalidParameterException` exception that will arises when:
 
 ## Libraries
 
-Use Step [Initialization](#initialization) so
+Use Step [Initialisation](#initialisation) so
 that the Jupita Typescript SDK is available within the scope of the project.
 
 
@@ -90,7 +90,7 @@ The available product under the Typescript SDK is Jupita. You may construct Jupi
 - Your authentication token,
 - Your `touchpointId`.
 
-Then, [initialize](#initialization).
+Then, [initialise](#initialisation).
 
 ## Class Method Definition
 
