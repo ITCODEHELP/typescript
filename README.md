@@ -13,7 +13,7 @@ The required parameters for the APIs include setting `messageType`, along with a
 ## APIs
 There is one API within the Jupita product – `dump`:
 
-- `Dump` allows you to dump each communication utterance.
+- `dump` allows you to dump each communication utterance.
 
 
 ##  Quickstart
@@ -45,7 +45,7 @@ const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 jupita.dump("Hello", 3, MessageType.Input)
 ```
 
-When you want to dump a message from an audio call (`isCall`) conversation, you may add an additional boolean parameter. `true` meaning the message is from an audio call, and `false` meaning it is not;
+The parameter `isCall` is required and set to false within the SDK. This tells Jupita whether or not the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true`;
 
 ```
 jupita.dump("Hello", 3, MessageType.Input, true)
@@ -68,28 +68,19 @@ jupita.dump("Hello", 3, MessageType.Input, true, {
 - `isCall` is `false`,
 - `listener` is null, so no listener called.
 
-The HTTP 200 response will return a JSON object;
-
-```
-{
-"message": "Dumped Conversation",
-"score": 88.0781855859
-}
-```
-
 ## Error Codes
 
-Error codes thrown are `401` when the token is incorrect and `400` when there is an attempt to dump gibberish content to the server, although the model does have an inbuilt gibberish detector.
+Error codes thrown are `401` when the token is incorrect.
 
 ## Error Handling
 
 The SDK has an `InvalidParameterException` exception that will arises when:
-- `messageType` parameter in the `dump` method is not `1` or `0`
+- `messageType` parameter in the `dump` method is not `1` or `0`.
 
 ## Libraries
 
 Use Step [Initialization](#initialization) so
-that the Jupita Web SDK is available within the scope of the project.
+that the Jupita Typescript SDK is available within the scope of the project.
 
 
 ## Classes
