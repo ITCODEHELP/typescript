@@ -53,7 +53,7 @@ jupita.dump("Hello", 3, MessageType.Input, true)
 
 Currently, as there is no data logged into the console (as you did not define a listener), you may define as per below;
 ```
-jupita.dump("Hello", 3, MessageType.Input, true, {
+jupita.dump("Hello", 3, MessageType.Touchpoint, true, {
     onError: (statusCode, response) => {
         console.log(statusCode)
         console.log(response)
