@@ -45,22 +45,16 @@ const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 jupita.dump("Hello", 3, MessageType.Touchpoint)
 ```
 
-Similarly, call the dump API whenever input responds back to the same touchpoint by specifying the message and ID of the touchpoint;
+Similarly, call the dump API whenever input responds back to the same touchpoint by specifying the message and ID of the input;
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
-jupita.dump("Hello", 2, MessageType.Input)
-```
-
-The parameter `isCall` is required and set to false within the SDK. This tells Jupita whether or not the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true`;
-
-```
-jupita.dump("Hello", 3, MessageType.Touchpoint, true)
+jupita.dump("Hello", 3, MessageType.Input)
 ```
 
 Currently, as there is no data logged into the console (as you did not define a listener), you may define as per below;
 ```
-jupita.dump("Hello", 3, MessageType.Touchpoint, true, {
+jupita.dump("Hello", 3, MessageType.Touchpoint, false, {
     onError: (statusCode, response) => {
         console.log(statusCode)
         console.log(response)
@@ -72,7 +66,7 @@ jupita.dump("Hello", 3, MessageType.Touchpoint, true, {
 ```
 
 - `messageType` is `MessageType.Touchpoint`, meaning that the message has come from a touchpoint,
-- `isCall` is `true`,
+- `isCall` is `false`,
 - `listener` is null, so no listener called.
 
 ## Error Codes
@@ -99,18 +93,18 @@ The available product under the Typescript SDK is Jupita. You may construct Jupi
 
 Then, [initialise](#initialisation).
 
-## Class Method Definition
 
-### `Dump` Method Definition
+## `Dump` Method Definition
 
 ```
 dump(text: string, inputId: number, messageType: number = MessageType.Touchpoint, isCall: boolean = false, listener?: Listener)
 ```
+The parameter `isCall` is required and set to false within the SDK. This tells Jupita whether or not the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true`;
 
 * text (required)
 * inputId (required)
-* messageType (optional, default = Touchpoint)
-* isCall (optional, default=false)
+* messageType (required, default = Touchpoint)
+* isCall (required, default=false)
 * listener (optional)
 
 To avoid illegal argument error for the `messageType` argument, use `MessageType.Touchpoint` for touchpoint, and `MessageType.Input` for input.
