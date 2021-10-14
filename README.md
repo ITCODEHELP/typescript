@@ -42,13 +42,13 @@ When calling the `dump` API, for example from a conversation with `3` being the 
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
-jupita.dump("Hello", 3, MessageType.Input)
+jupita.dump("Hello", 3, MessageType.Touchpoint)
 ```
 
 The parameter `isCall` is required and set to false within the SDK. This tells Jupita whether or not the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true`;
 
 ```
-jupita.dump("Hello", 3, MessageType.Input, true)
+jupita.dump("Hello", 3, MessageType.Touchpoint, true)
 ```
 
 Currently, as there is no data logged into the console (as you did not define a listener), you may define as per below;
