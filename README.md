@@ -77,7 +77,7 @@ Error codes thrown are 401 when the token is incorrect, otherwise Jupita returns
 
 
 ## Libraries
-Use Step [Initialisation](#initialisation) so that the Jupita Typescript SDK is available within the scope of the project.
+See [Step 1](#step1) so that the Jupita Typescript SDK is available within the scope of the project.
 
 
 ## Classes
@@ -86,7 +86,7 @@ The available product under the Typescript SDK is Jupita. You may construct Jupi
 - Your authentication token,
 - Your `touchpointId`.
 
-Then, [initialise](#initialisation).
+Then, [initialise](#step1).
 
 
 ## `dump` Method Definition
