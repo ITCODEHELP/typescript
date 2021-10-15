@@ -1,4 +1,3 @@
-
 ![npm](https://img.shields.io/npm/v/@jupita/jupita-sdk)
 
 # Jupita Typescript SDK
@@ -77,16 +76,17 @@ Error codes thrown are 401 when the token is incorrect, otherwise Jupita returns
 
 
 ## Libraries
-See [Step 1](#step1) so that the Jupita Typescript SDK is available within the scope of the project.
+Use Step 1 and 2 so that the Jupita Android SDK is available within the scope of the project.
 
 
 ## Classes
-The available product under the Typescript SDK is Jupita. You may construct Jupita by the public constructor and pass the two required parameters:
-
-- Your authentication token,
-- Your `touchpointId`.
-
-Then, [initialise](#step1).
+The available product under the Typescript SDK is Jupita. Jupita can be constructed directly using the public constructor but it is highly recommended to use the built class. This will ensure that mistakes are not made while building Jupita.
+```
+const { Jupita } = require("@jupita/jupita-sdk")
+const token = '<authentication token>'
+const touchpointId = '2'
+const jupita = new Jupita(token, touchpointId)
+```
 
 
 ## `dump` Method Definition
