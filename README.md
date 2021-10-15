@@ -2,13 +2,14 @@
 ![npm](https://img.shields.io/npm/v/@jupita/jupita-sdk)
 
 # Jupita Typescript SDK
-
 This library will allow you to make the required `dump` API calls with Jupita. All API calls are made asynchronously, thus there are event listeners available to handle the API results.
+
 
 ## Overview
 Jupita is an API product that provides deep learning powered touchpoint analytics. Within the SDK documentation, `messageType` refers to which user the utterance is from. `messageType` 0 = `touchpoint`, and `messageType` 1 = `input`, although these labels are handled by the SDK.
 
 The required parameters for the APIs include setting `messageType`, along with assigning an `touchpointId` + `inputId` to be passed - how this is structured or deployed is completely flexible and customizable. Please note when assigning the `touchpointId` that no data will be available for that particular touchpoint until the touchpoint has sent at least 1 utterance via the `dump` API. 
+
 
 ## APIs
 There is one API within the Jupita product – `dump`:
@@ -17,17 +18,15 @@ There is one API within the Jupita product – `dump`:
 
 
 ##  Quickstart
-
 ### Step 1
+Install Jupita;
 
 ```
 npm install @jupita/jupita-sdk
 ```
 
-
-The first step is to initialize the SDK and add the required authentication parameters such as `token`, `touchpointId` then, initialize the class object.
-
-### Initialisation
+### Step 2
+Build Jupita. Insert your API key as the token as well as a touchpoint user ID. In the example below '2' represents the touchpoint_id;
 
 ```
 const { Jupita } = require("@jupita/jupita-sdk")
@@ -36,25 +35,27 @@ const touchpointId = '2'
 const jupita = new Jupita(token, touchpointId)
 ```
 
-### Call `Dump` API
+### Step 3
+Dump an utterance from a touchpoint by calling the dump API as a message by specifying the message text and the ID of the input, represented in the example below as '3'. Message dumps are by default from a touchpoint unless otherwise specified. 
 
-When a touchpoint sends an utterance to an input, for example `3` being the `inputId`, you should specify the `text`, `inputId`, and the `messageType` (since message dumps are by default from a touchpoint unless otherwise specified) parameters sequentially;
+The parameter `isCall` is required and set to false by default. This tells Jupita if the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true` otherwise set to false;
+
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
-jupita.dump("Hello", 3, MessageType.Touchpoint)
+jupita.dump("Hi, how are you?", 3, MessageType.Touchpoint, false)
 ```
 
-Similarly, call the dump API whenever input responds back to the same touchpoint by specifying the message and ID of the input;
+Similarly, call the dump API whenever dumping an utterance from an input by specifying the message text and ID of the input;
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
-jupita.dump("Hello", 3, MessageType.Input)
+jupita.dump("Hi, good thanks!", 3, MessageType.Input)
 ```
 
-Currently, as there is no data logged into the console (as you did not define a listener), you may define as per below;
+Additionally, you may define a listener as per below;
 ```
-jupita.dump("Hello", 3, MessageType.Touchpoint, false, {
+jupita.dump("Hello", 3, MessageType.Touchpoint, false)
     onError: (statusCode, response) => {
         console.log(statusCode)
         console.log(response)
@@ -65,27 +66,21 @@ jupita.dump("Hello", 3, MessageType.Touchpoint, false, {
 })
 ```
 
-- `messageType` is `MessageType.Touchpoint`, meaning that the message has come from a touchpoint,
-- `isCall` is `false`,
-- `listener` is null, so no listener called.
+## Error Handling
+The SDK throws 2 errors:
+- JSONException which occurs if the user input is not json compatible. This can be incorrect usage of strings when passed on to the Jupita methods.
+- IllegalArgumentException: this arises if the `messageType` set in the dump method is not 1 or 0.
+
 
 ## Error Codes
+Error codes thrown are 401 when the token is incorrect, otherwise Jupita returns error 400 with details.
 
-Error codes thrown are `401` when the token is incorrect.
-
-## Error Handling
-
-The SDK has an `InvalidParameterException` exception that will arises when:
-- `messageType` parameter in the `dump` method is not `1` or `0`.
 
 ## Libraries
-
-Use Step [Initialisation](#initialisation) so
-that the Jupita Typescript SDK is available within the scope of the project.
+Use Step [Initialisation](#initialisation) so that the Jupita Typescript SDK is available within the scope of the project.
 
 
 ## Classes
-
 The available product under the Typescript SDK is Jupita. You may construct Jupita by the public constructor and pass the two required parameters:
 
 - Your authentication token,
@@ -94,12 +89,10 @@ The available product under the Typescript SDK is Jupita. You may construct Jupi
 Then, [initialise](#initialisation).
 
 
-## `Dump` Method Definition
-
+## `dump` Method Definition
 ```
 dump(text: string, inputId: number, messageType: number = MessageType.Touchpoint, isCall: boolean = false, listener?: Listener)
 ```
-The parameter `isCall` is required and set to false within the SDK. This tells Jupita whether or not the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true`;
 
 * text (required)
 * inputId (required)
@@ -109,4 +102,4 @@ The parameter `isCall` is required and set to false within the SDK. This tells J
 
 To avoid illegal argument error for the `messageType` argument, use `MessageType.Touchpoint` for touchpoint, and `MessageType.Input` for input.
 
-If you require additional support just hit us up at support@jupita.io 
+If you require additional support please contact support@jupita.io
