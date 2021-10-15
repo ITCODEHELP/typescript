@@ -25,7 +25,7 @@ npm install @jupita/jupita-sdk
 ```
 
 ### Step 2
-Build Jupita. Insert your API key as the token as well as a touchpoint user ID. In the example below '2' represents the touchpoint_id;
+Build Jupita. Insert your API key as the token as well as a touchpoint user ID. In the example below '2' represents the touchpointId;
 
 ```
 const { Jupita } = require("@jupita/jupita-sdk")
@@ -37,7 +37,7 @@ const jupita = new Jupita(token, touchpointId)
 ### Step 3
 Dump an utterance from a touchpoint by calling the dump API as a message by specifying the message text and the ID of the input, represented in the example below as '3'. Message dumps are by default from a touchpoint unless otherwise specified. 
 
-The parameter `isCall` is required and set to false by default. This tells Jupita if the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true` otherwise set to false;
+The parameter `isCall` is required and set to false by default. This tells Jupita if the utterance is from an audio call. When dumping an utterance from an audio call, set the `isCall` parameter to `true` otherwise set to `false`;
 
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
@@ -49,12 +49,13 @@ Similarly, call the dump API whenever dumping an utterance from an input by spec
 ```
 const { Jupita, MessageType } = require("@jupita/jupita-sdk")
 
-jupita.dump("Hi, good thanks!", 3, MessageType.Input)
+jupita.dump("Hi, good thanks!", 3, MessageType.Input, false)
 ```
 
 Additionally, you may define a listener as per below;
+
 ```
-jupita.dump("Hello", 3, MessageType.Touchpoint, false)
+jupita.dump("Hi, good thanks!", 3, MessageType.Input, false)
     onError: (statusCode, response) => {
         console.log(statusCode)
         console.log(response)
@@ -68,7 +69,7 @@ jupita.dump("Hello", 3, MessageType.Touchpoint, false)
 ## Error handling
 The SDK throws 2 errors:
 - JSONException which occurs if the user input is not json compatible. This can be incorrect usage of strings when passed on to the Jupita methods.
-- IllegalArgumentException which occurs if the `message_type` set in the dump method is not 1 or 0.
+- IllegalArgumentException which occurs if the `messageType` set in the dump method is not 1 or 0.
 
 
 ## Error Codes
@@ -81,6 +82,7 @@ Use Step 1 and 2 so that the Jupita Android SDK is available within the scope of
 
 ## Classes
 The available product under the Typescript SDK is Jupita. Jupita can be constructed directly using the public constructor but it is highly recommended to use the built class. This will ensure that mistakes are not made while building Jupita.
+
 ```
 const { Jupita } = require("@jupita/jupita-sdk")
 const token = '<authentication token>'
@@ -90,6 +92,7 @@ const jupita = new Jupita(token, touchpointId)
 
 
 ## `dump` Method Definition
+
 ```
 dump(text: string, inputId: number, messageType: number = MessageType.Touchpoint, isCall: boolean = false, listener?: Listener)
 ```
